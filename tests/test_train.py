@@ -24,6 +24,12 @@ def test_no_feasible_threshold_abstains():
     assert select_threshold(np.array([1, 0]), np.array([0.1, 0.9]), 1.0) == 1.0
 
 
+def test_run_is_reproducible():
+    first = run(seed=123, n_samples=2000, min_precision=0.30)
+    second = run(seed=123, n_samples=2000, min_precision=0.30)
+    assert first == second
+
+
 def test_run_has_disjoint_split_sizes_and_finite_metrics():
     result = run(n_samples=2000)
     assert sum(result["split"].values()) == 2000
